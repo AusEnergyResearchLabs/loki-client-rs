@@ -38,7 +38,7 @@ impl Loki {
 
         let mut services = HashMap::new();
 
-        for line in text.split("\n") {
+        for line in text.lines() {
             let part = line.split(" => ").collect::<Vec<&str>>();
 
             if part.len() != 2 {
