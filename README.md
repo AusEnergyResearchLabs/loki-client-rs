@@ -4,10 +4,12 @@
 
 | Method | Path | Implemented? |
 | --- | --- | --- |
-| `GET` | `/ready` | |
+| `GET` | `/ready` | ✅ |
 | `GET` | `/metrics` | N/A |
 | `GET` | `/config` | |
-| `GET` | `/services` | |
+| `GET` | `/services` | ✅ |
+| `GET` | `/flush` | ✅ |
+| `GET` | `/ingester/shutdown` | ✅ |
 | `GET` | `/loki/api/v1/status/buildinfo` | |
 | `GET` | `/loki/api/v1/format_query` | |
 | `GET` | `/loki/api/v1/query` | |
@@ -17,4 +19,4 @@
 | `GET` | `/loki/api/v1/series` | |
 | `GET` | `/loki/api/v1/index/stats` | |
 | `GET` | `/loki/api/v1/tail` | |
-| `GET` | `/loki/api/v1/push` | |
+| `POST` | `/loki/api/v1/push` | ✅ |
