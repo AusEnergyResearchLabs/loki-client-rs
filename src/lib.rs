@@ -39,17 +39,14 @@ impl Loki {
         let mut services = HashMap::new();
 
         for line in text.lines() {
-            let part = line.split(" => ").collect::<Vec<&str>>();
+            let part: Vec<&str> = line.split(" => ").collect();
 
-            if part.len() != 2 {
-                continue;
-            }
+            if part.len() == 2 {
+                let (name, status) = (part[0], part[1]);
 
-            let name = part[0];
-            let status = part[1];
-
-            if let Ok(status) = ServiceStatus::from_str(status) {
-                services.insert(name.to_owned(), status);
+                if let Ok(status) = ServiceStatus::from_str(status) {
+                    services.insert(name.to_owned(), status);
+                }
             }
         }
 
