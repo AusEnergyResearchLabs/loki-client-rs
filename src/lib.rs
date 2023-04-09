@@ -1,13 +1,11 @@
 use reqwest::{Client, Result as ApiResult};
-use serde::Serialize;
 use std::collections::HashMap;
 use std::str::FromStr;
-use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
 mod stream;
 use stream::*;
 
-struct Loki {
+pub struct Loki {
     url: String,
     client: Client,
 }
