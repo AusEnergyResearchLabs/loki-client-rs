@@ -5,6 +5,7 @@ use std::str::FromStr;
 mod stream;
 use stream::*;
 
+/// Loki client
 pub struct Loki {
     url: String,
     client: Client,
@@ -53,6 +54,7 @@ impl Loki {
         Ok(services)
     }
 
+    /// Flush in-memory chunks to backing store
     pub async fn flush(&self) -> ApiResult<()> {
         let uri = format!("{}/flush", self.url);
 
@@ -61,6 +63,7 @@ impl Loki {
         Ok(())
     }
 
+    /// Flush in-memory chunks and shut down
     pub async fn ingester_shutdown(&self) -> ApiResult<()> {
         let uri = format!("{}/ingester/shutdown", self.url);
 
@@ -69,6 +72,7 @@ impl Loki {
         Ok(())
     }
 
+    /// Push log entries to Loki
     pub async fn push(&self, streams: Streams) -> ApiResult<()> {
         let uri = format!("{}/loki/api/v1/push", self.url);
 
@@ -90,6 +94,7 @@ impl Loki {
     }
 }
 
+/// Service status
 #[derive(Debug)]
 pub enum ServiceStatus {
     New,
@@ -123,6 +128,7 @@ mod tests {
     #[tokio::test]
     async fn services() {
         let services = Loki::new("http://localhost:3100").services().await.unwrap();
+
 
         assert!(services.len() > 0);
     }

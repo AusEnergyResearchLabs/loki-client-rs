@@ -2,6 +2,7 @@ use serde::Serialize;
 use std::collections::HashMap;
 use std::time::{SystemTime, UNIX_EPOCH};
 
+/// Stream
 #[derive(Serialize, Debug)]
 pub struct Stream {
     #[serde(rename = "stream")]
@@ -9,6 +10,7 @@ pub struct Stream {
     values: Vec<Vec<String>>,
 }
 
+/// Streams
 #[derive(Serialize, Debug)]
 pub struct Streams {
     pub streams: Vec<Stream>,
