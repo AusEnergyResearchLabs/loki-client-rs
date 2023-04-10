@@ -46,17 +46,14 @@ impl Builder {
     /// Add log message to the stream
     ///
     /// An optional timestamp can be provided
-    pub fn log<S>(mut self, timestamp: Option<SystemTime>, log: S) -> Self
+    pub fn log<S>(mut self, timestamp: Option<u128>, log: S) -> Self
     where
         S: Into<String>,
     {
         let log = log.into();
 
         let timestamp = match timestamp {
-            Some(t) => t
-                .duration_since(UNIX_EPOCH)
-                .expect("Time went backwards")
-                .as_nanos(),
+            Some(t) => t,
             None => SystemTime::now()
                 .duration_since(UNIX_EPOCH)
                 .expect("Time went backwards")
