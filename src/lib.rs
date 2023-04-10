@@ -2,8 +2,8 @@ use reqwest::{Client, Result as ApiResult};
 use std::collections::HashMap;
 use std::str::FromStr;
 
-mod stream;
-use stream::*;
+pub mod stream;
+pub use stream::*;
 
 /// Loki client
 pub struct Loki {
