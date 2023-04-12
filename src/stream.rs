@@ -3,7 +3,7 @@ use std::collections::HashMap;
 use std::time::{SystemTime, UNIX_EPOCH};
 
 /// Stream
-#[derive(Serialize, Debug)]
+#[derive(Serialize, Debug, Clone)]
 pub struct Stream {
     #[serde(rename = "stream")]
     labels: HashMap<String, String>,
@@ -11,7 +11,7 @@ pub struct Stream {
 }
 
 /// Streams
-#[derive(Serialize, Debug)]
+#[derive(Serialize, Debug, Clone)]
 pub struct Streams {
     pub streams: Vec<Stream>,
 }
