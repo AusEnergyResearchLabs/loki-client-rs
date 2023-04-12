@@ -78,8 +78,6 @@ impl Loki {
 
         let body = serde_json::to_string(&streams).unwrap();
 
-        println!("{body}");
-
         let res = self
             .client
             .post(uri)
@@ -87,8 +85,6 @@ impl Loki {
             .header("Content-Type", "application/json")
             .send()
             .await?;
-
-        println!("{:?}", res.text().await);
 
         Ok(())
     }
