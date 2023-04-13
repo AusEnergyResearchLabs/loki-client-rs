@@ -78,7 +78,7 @@ impl Loki {
 
         let body = serde_json::to_string(&streams).unwrap();
 
-        let res = self
+        let _res = self
             .client
             .post(uri)
             .body(body)
