@@ -1,0 +1,22 @@
+version: "3"
+
+networks:
+  loki:
+
+services:
+  grafana:
+    image: grafana/grafana:latest
+    restart: always
+    ports:
+      - 3000:3000
+    networks:
+      - loki
+
+  loki:
+    image: grafana/loki:latest
+    command: -config.file=/etc/loki/loki-config.yaml
+    restart: always
+    ports:
+      - 3100:3100
+    networks:
+      - loki
