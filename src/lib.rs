@@ -1,9 +1,24 @@
-use reqwest::{Client, Result as ApiResult};
+use reqwest::{Client, Result as ApiResult, Error};
+use serde::Deserialize;
 use std::collections::HashMap;
 use std::str::FromStr;
 
 pub mod stream;
 pub use stream::*;
+
+/// Build information
+#[derive(Debug, Deserialize)]
+pub struct BuildInfo {
+    pub version: String,
+    pub revision: String,
+    pub branch: String,
+    #[serde(rename = "buildUser")]
+    pub build_user: String,
+    #[serde(rename = "buildDate")]
+    pub build_date: String,
+    #[serde(rename = "goVersion")]
+    pub go_version: String,
+}
 
 /// Loki client
 pub struct Loki {
@@ -72,6 +87,18 @@ impl Loki {
         Ok(())
     }
 
+    /// Get build information
+    pub async fn build_info(&self) -> ApiResult<BuildInfo> {
+        let uri = format!("{}/loki/api/v1/status/buildinfo", self.url);
+
+        let res = self.client.get(uri).send().await?;
+        let text = res.text().await?;
+
+        let body = serde_json::from_str::<BuildInfo>(&text).unwrap();
+
+        Ok(body)
+    }
+
     /// Push log entries to Loki
     pub async fn push(&self, streams: Streams) -> ApiResult<()> {
         let uri = format!("{}/loki/api/v1/push", self.url);
@@ -121,11 +148,22 @@ impl FromStr for ServiceStatus {
 mod tests {
     use super::*;
 
+    static URL: &str = "http://localhost:3100";
+
     #[tokio::test]
     async fn services() {
-        let services = Loki::new("http://localhost:3100").services().await.unwrap();
+        let services = Loki::new(URL).services().await.unwrap();
 
         assert!(services.len() > 0);
+    }
+
+    #[tokio::test]
+    async fn build_info() {
+        let build_info = Loki::new(URL).build_info().await.unwrap();
+
+        println!("{:?}", build_info);
+
+        assert!(build_info.version != "");
     }
 
     #[tokio::test]
@@ -135,7 +173,7 @@ mod tests {
             .log(None, "output")
             .build();
 
-        Loki::new("http://localhost:3100")
+        Loki::new(URL)
             .push(Streams {
                 streams: vec![stream],
             })
