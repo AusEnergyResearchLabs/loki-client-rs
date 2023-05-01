@@ -125,7 +125,6 @@ mod tests {
     async fn services() {
         let services = Loki::new("http://localhost:3100").services().await.unwrap();
 
-
         assert!(services.len() > 0);
     }
 
