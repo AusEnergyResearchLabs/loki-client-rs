@@ -10,7 +10,7 @@
 | `GET` | `/services` | ✅ |
 | `GET` | `/flush` | ✅ |
 | `GET` | `/ingester/shutdown` | ✅ |
-| `GET` | `/loki/api/v1/status/buildinfo` | |
+| `GET` | `/loki/api/v1/status/buildinfo` | ✅ |
 | `GET` | `/loki/api/v1/format_query` | |
 | `GET` | `/loki/api/v1/query` | |
 | `GET` | `/loki/api/v1/query_range` | |
