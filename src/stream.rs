@@ -39,7 +39,7 @@ impl Builder {
 
     /// Add log message to the stream
     ///
-    /// An optional timestamp can be provided
+    /// An optional timestamp can be provided. If none is provided, the current time is used.
     pub fn log<S>(mut self, timestamp: Option<u128>, log: S) -> Self
     where
         S: Into<String>,
