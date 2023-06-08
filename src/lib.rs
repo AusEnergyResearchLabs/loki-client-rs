@@ -6,6 +6,12 @@ use std::str::FromStr;
 pub mod stream;
 pub use stream::*;
 
+/// Streams
+#[derive(Serialize, Debug, Clone)]
+pub struct Streams {
+    pub streams: Vec<Stream>,
+}
+
 /// Build information
 #[derive(Debug, Deserialize)]
 pub struct BuildInfo {

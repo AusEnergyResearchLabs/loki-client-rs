@@ -10,12 +10,6 @@ pub struct Stream {
     values: Vec<Vec<String>>,
 }
 
-/// Streams
-#[derive(Serialize, Debug, Clone)]
-pub struct Streams {
-    pub streams: Vec<Stream>,
-}
-
 /// Incrementally constructs a `Stream`
 #[derive(Debug)]
 pub struct Builder {
