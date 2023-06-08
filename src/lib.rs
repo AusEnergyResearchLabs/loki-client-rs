@@ -1,4 +1,4 @@
-use reqwest::{Client, Result as ApiResult, Error};
+use reqwest::{Client, Error, Result as ApiResult};
 use serde::Deserialize;
 use std::collections::HashMap;
 use std::str::FromStr;
